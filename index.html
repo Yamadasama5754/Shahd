@@ -485,34 +485,38 @@ html,body{height:100%;overflow:hidden;font-family:'Tajawal',sans-serif;backgroun
 /* THE END BUTTON */
 #theEndBtn{
   display:block;
-  margin:8px auto 28px;
+  margin:10px auto 28px;
   font-family:'Playfair Display',serif;
-  font-size:1.6rem;
+  font-size:1.15rem;
   font-style:italic;
-  color:rgba(255,245,240,0.5);
-  background:none;border:none;cursor:pointer;
-  letter-spacing:3px;
-  transition:color 0.3s, text-shadow 0.3s;
-  padding:10px 20px;
+  color:#fff;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+  letter-spacing:2px;
+  padding:14px 34px;
+  box-shadow:0 0 22px rgba(232,48,90,0.55), 0 4px 18px rgba(0,0,0,0.35);
+  animation:endBtnPulse 2s ease-in-out infinite;
+  touch-action:manipulation;
 }
-#theEndBtn:hover, #theEndBtn:active{
-  color:var(--rose);
-  text-shadow:0 0 20px rgba(232,48,90,0.6);
+@keyframes endBtnPulse{
+  0%,100%{box-shadow:0 0 22px rgba(232,48,90,0.55),0 4px 18px rgba(0,0,0,0.35);}
+  50%{box-shadow:0 0 40px rgba(232,48,90,0.9),0 4px 28px rgba(0,0,0,0.4);}
+}
+#theEndBtn:active{transform:scale(0.95);}
+#endBtnHint{
+  display:block;
+  text-align:center;
+  font-size:0.72rem;
+  color:rgba(240,192,96,0.7);
+  letter-spacing:3px;
+  margin-bottom:6px;
+  animation:bounce 1.4s ease-in-out infinite;
+  font-family:'Share Tech Mono',monospace;
 }
 
-/* END SCREEN */
-#pgEnd{
-  position:fixed;inset:0;z-index:500;
-  opacity:0;pointer-events:none;
-  transition:opacity 1.2s ease;
-}
-#pgEnd.visible{opacity:1;pointer-events:auto;}
-#endVideo{
-  position:fixed;inset:0;width:100%;height:100%;
-  object-fit:cover;z-index:501;
-  opacity:0;transition:opacity 1.5s ease;
-}
-#endVideo.show{opacity:1;}
+/* END SCREEN - removed (replaced by endUniverse) */
 
 /* خيوط + صورة معلقة */
 .end-hanger{
@@ -587,6 +591,167 @@ html,body{height:100%;overflow:hidden;font-family:'Tajawal',sans-serif;backgroun
   letter-spacing:1px;
   position:relative;z-index:502;
 }
+
+/* ═══════ ENDING UNIVERSE ═══════ */
+#endUniverse{position:fixed;inset:0;z-index:600;display:none;}
+#endUniverse.active{display:block;}
+#endBlack{position:absolute;inset:0;background:#000;z-index:1;opacity:0;transition:opacity 1.2s ease;}
+#endBlack.show{opacity:1;}
+
+/* ERROR POPUPS */
+#errorContainer{position:absolute;inset:0;z-index:5;pointer-events:none;}
+.err-pop{
+  position:absolute;
+  font-family:'Share Tech Mono',monospace;
+  min-width:200px;max-width:260px;
+  animation:errPop 0.25s cubic-bezier(0.34,1.6,0.64,1);
+  pointer-events:none;
+  filter:drop-shadow(0 4px 16px rgba(0,0,0,0.7));
+}
+@keyframes errPop{from{transform:scale(0.5) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.err-bar{
+  background:linear-gradient(90deg,#000080,#1084d0,#000080);
+  padding:3px 6px;display:flex;align-items:center;justify-content:space-between;
+  color:#fff;font-size:0.7rem;font-weight:bold;letter-spacing:1px;
+}
+.err-bar-btns{display:flex;gap:2px;}
+.err-bar-btn{
+  width:14px;height:12px;background:#c0c0c0;
+  border-top:1px solid #fff;border-left:1px solid #fff;
+  border-right:1px solid #404040;border-bottom:1px solid #404040;
+  font-size:0.55rem;color:#000;display:flex;align-items:center;justify-content:center;
+}
+.err-body{
+  background:#c0c0c0;
+  border-top:2px solid #fff;border-left:2px solid #fff;
+  border-right:2px solid #404040;border-bottom:2px solid #404040;
+  padding:12px 10px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.err-row{display:flex;align-items:flex-start;gap:10px;width:100%;}
+.err-icon{font-size:1.8rem;flex-shrink:0;line-height:1;}
+.err-txt{font-size:0.68rem;color:#000;line-height:1.6;}
+.err-ok{
+  font-family:'Share Tech Mono',monospace;font-size:0.72rem;font-weight:bold;
+  padding:3px 24px;
+  background:#c0c0c0;
+  border-top:2px solid #fff;border-left:2px solid #fff;
+  border-right:2px solid #404040;border-bottom:2px solid #404040;
+  color:#000;cursor:default;letter-spacing:1px;
+}
+
+/* LOVE POPUP */
+#lovePop{
+  position:absolute;inset:0;z-index:20;
+  display:flex!important;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity 0.5s ease;
+}
+#lovePop.show{opacity:1;pointer-events:auto;}
+.lp-box{
+  background:#ffd6e4;
+  border-top:3px solid #fff;border-left:3px solid #fff;
+  border-right:3px solid #a00050;border-bottom:3px solid #a00050;
+  font-family:'Share Tech Mono',monospace;
+  min-width:240px;max-width:300px;
+  animation:lpPop 0.35s cubic-bezier(0.34,1.5,0.64,1);
+}
+@keyframes lpPop{from{transform:scale(0.6);}to{transform:scale(1);}}
+.lp-title{
+  background:linear-gradient(90deg,#cc0060,#ff3399,#cc0060);
+  padding:4px 8px;display:flex;align-items:center;justify-content:space-between;
+  color:#fff;font-size:0.75rem;letter-spacing:1px;font-weight:bold;user-select:none;
+}
+.lp-close{
+  width:16px;height:16px;
+  background:linear-gradient(135deg,#ffaacc,#ff4499);
+  border-top:1.5px solid #fff;border-left:1.5px solid #fff;
+  border-right:1.5px solid #880044;border-bottom:1.5px solid #880044;
+  color:#440022;font-size:0.65rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+}
+.lp-body{padding:16px 14px 14px;background:#ffe8f3;display:flex;flex-direction:column;gap:14px;align-items:center;}
+.lp-content{display:flex;align-items:center;gap:14px;width:100%;}
+.lp-tri{width:36px;height:36px;flex-shrink:0;}
+.lp-tri svg{width:100%;height:100%;}
+.lp-text{display:flex;flex-direction:column;gap:4px;}
+.lp-msg{font-size:0.95rem;color:#3a0018;font-family:'Share Tech Mono',monospace;font-weight:bold;}
+.lp-kao{font-size:0.8rem;color:#880044;font-family:'Share Tech Mono',monospace;}
+.lp-btns{display:flex;gap:10px;justify-content:center;}
+.lp-btn{
+  font-family:'Share Tech Mono',monospace;font-size:0.82rem;font-weight:bold;
+  padding:5px 28px;
+  background:linear-gradient(180deg,#ffd6e4,#ffaac8);
+  border-top:2px solid #fff;border-left:2px solid #fff;
+  border-right:2px solid #880044;border-bottom:2px solid #880044;
+  color:#3a0018;cursor:pointer;letter-spacing:2px;min-width:80px;text-align:center;
+  touch-action:manipulation;transition:opacity 0.3s,transform 0.3s;
+}
+.lp-btn:active{border-top:2px solid #880044;border-left:2px solid #880044;border-right:2px solid #fff;border-bottom:2px solid #fff;}
+.lp-no.hide{opacity:0!important;pointer-events:none!important;transform:scale(0.5);}
+
+/* HACKER MSG */
+#hackMsg{
+  position:absolute;inset:0;z-index:25;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;
+  font-family:'Share Tech Mono',monospace;
+  letter-spacing:5px;text-align:center;
+  opacity:0;pointer-events:none;
+  padding:24px;
+}
+#hackMsg.show{opacity:1;}
+#hmMain{
+  font-size:clamp(1.3rem,5.5vw,2.2rem);
+  color:#0ff;
+  text-shadow:0 0 8px #0ff,0 0 25px #0ff,0 0 60px rgba(0,255,255,0.5);
+  line-height:1.6;
+  min-height:2.5rem;
+}
+#hmSub{
+  font-size:clamp(0.7rem,2.8vw,0.9rem);
+  color:rgba(0,200,255,0.5);
+  letter-spacing:4px;
+  animation:blink 1s step-end infinite;
+}
+
+/* FINAL VIDEO */
+#finalVid{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:30;
+  opacity:0;transition:opacity 1.5s ease;
+  pointer-events:none;
+}
+#finalVid.show{opacity:1;}
+/* FLIP SCREEN */
+#flipScreen{
+  position:absolute;inset:0;z-index:28;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:20px;
+  opacity:0;pointer-events:none;
+  transition:opacity 1s ease;
+}
+#flipScreen.show{opacity:1;}
+#flipPhone{
+  font-size:4rem;
+  animation:flipAnim 1.2s ease-in-out infinite;
+}
+@keyframes flipAnim{
+  0%{transform:rotate(0deg);}
+  40%{transform:rotate(90deg);}
+  60%{transform:rotate(90deg);}
+  100%{transform:rotate(90deg) scale(1.05);}
+}
+#flipTxt{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1rem,4.5vw,1.5rem);
+  font-style:italic;
+  color:rgba(255,245,240,0.92);
+  text-align:center;
+  direction:rtl;
+  text-shadow:0 0 20px rgba(232,48,90,0.6);
+  letter-spacing:1px;
+  line-height:1.8;
+}
+/* ═══════════════════════════════ */
 </style>
 <body>
 <canvas id="canvas"></canvas>
@@ -748,7 +913,7 @@ html,body{height:100%;overflow:hidden;font-family:'Tajawal',sans-serif;backgroun
       <div class="poem-title">إلى شهد..</div>
       <div class="poem-sub">بقلم يامادا المحب 🌹</div>
       <div class="poem-video-wrap">
-        <video class="poem-video" autoplay loop muted playsinline src="https://files.catbox.moe/zlwyvw.mp4"></video>
+        <video id="poemVideo" class="poem-video" loop muted playsinline preload="none" src="https://files.catbox.moe/zlwyvw.mp4"></video>
       </div>
       <div class="poem-box">
         <span class="poem-line">يا شهدُ يا سُكّر الأيامِ في عيني</span>
@@ -775,25 +940,42 @@ html,body{height:100%;overflow:hidden;font-family:'Tajawal',sans-serif;backgroun
       <img class="poem-end-img" src="https://i.ibb.co/hxdBkf3P/image-0.jpg" alt="">
       <div class="poem-seal">أحبكِ للأبد ♾️</div>
       <div class="scroll-hint">▼</div>
-      <button id="theEndBtn">~ The End ~</button>
+      <span id="endBtnHint">✦ اضغطي هنا ✦</span>
+      <button id="theEndBtn">💌 النهاية</button>
     </div>
   </div>
 </div>
 
-<!-- END SCREEN -->
-<div id="pgEnd">
-  <video id="endVideo" autoplay loop muted playsinline src="https://files.catbox.moe/1g6fj9.mp4"></video>
-  <audio id="endSong" src="https://files.catbox.moe/1g6fj9.mp4" loop></audio>
-  <div class="end-hanger" id="endHanger">
-    <div class="threads">
-      <div class="thread"></div>
-      <div class="thread"></div>
+<!-- NEW ENDING -->
+<div id="endUniverse">
+  <div id="endBlack"></div>
+  <!-- error popups container -->
+  <div id="errorContainer"></div>
+  <!-- final love popup -->
+  <div id="lovePop" style="display:none">
+    <div class="lp-box">
+      <div class="lp-title"><span>💌 Desktop</span><div class="lp-close">✕</div></div>
+      <div class="lp-body">
+        <div class="lp-content">
+          <div class="lp-tri"><svg viewBox="0 0 38 38"><polygon points="19,3 36,34 2,34" fill="#e0006a" stroke="#880044" stroke-width="2"/><text x="19" y="30" text-anchor="middle" font-family="monospace" font-size="16" font-weight="900" fill="white">!</text></svg></div>
+          <div class="lp-text"><div class="lp-msg">Do you love me?</div><div class="lp-kao">ʕ(@^▽^@)ʔ</div></div>
+        </div>
+        <div class="lp-btns">
+          <button class="lp-btn" id="lpYes">Yes</button>
+          <button class="lp-btn lp-no" id="lpNo">No</button>
+        </div>
+      </div>
     </div>
-    <div class="end-img-wrap">
-      <img src="https://i.ibb.co/mVQzZFJ5/image-0.jpg" alt="">
-    </div>
-    <div class="end-below-text">هّلَ حًقُآ تٌحًبًيَنِنِيَ<br>آنِتٌضر جّوٌآبًکْ 🪸✨</div>
   </div>
+  <!-- hacker text -->
+  <div id="hackMsg"><div id="hmMain"></div><div id="hmSub">[ ACCESS_GRANTED ]</div></div>
+  <!-- flip screen -->
+  <div id="flipScreen">
+    <div id="flipPhone">📱</div>
+    <div id="flipTxt">اقلبي الشاشة<br>للأفقي 🌹</div>
+  </div>
+  <!-- final video -->
+  <video id="finalVid" loop playsinline preload="none" src="https://files.catbox.moe/9uawje.mp4"></video>
 </div>
 
 <script>
@@ -1218,14 +1400,24 @@ function typeHacker(text,onDone){
 }
 
 function goPoem(){
-  hackerScreen.style.transition='opacity 0.9s ease';hackerScreen.style.opacity='0';
-  darkness.style.transition='opacity 0.8s ease';darkness.style.opacity='0';
+  hackerScreen.style.transition='opacity 0.9s ease';
+  hackerScreen.style.opacity='0';
+  darkness.style.transition='opacity 0.8s ease';
+  darkness.style.opacity='0';
   setTimeout(()=>{
-    hackerScreen.classList.remove('active');mainCard.classList.remove('fading');
+    hackerScreen.classList.remove('active');
+    mainCard.classList.remove('fading');
     mainCard.classList.add('poem-mode');
+    // أخفِ الظلام تماماً عشان ما يغطي الكارت
+    darkness.style.pointerEvents='none';
+    darkness.style.display='none';
     document.getElementById('pg1').classList.remove('on');
-    const pg3=document.getElementById('pg3');pg3.classList.add('on');pg3.scrollTop=0;
-  },900);
+    const pg3=document.getElementById('pg3');
+    pg3.classList.add('on');
+    pg3.scrollTop=0;
+    const pv=document.getElementById('poemVideo');
+    if(pv){pv.play().catch(()=>{});}
+  },950);
 }
 
 /* NO CLICK */
@@ -1242,24 +1434,153 @@ noBtn.addEventListener('click',()=>{
 document.getElementById('theEndBtn').addEventListener('click', goEnd);
 
 function goEnd(){
-  const pgEnd   = document.getElementById('pgEnd');
-  const endVideo= document.getElementById('endVideo');
-  const endHanger=document.getElementById('endHanger');
+  [introSong,gameSong].forEach(a=>{try{a.pause();a.currentTime=0;}catch(e){}});
 
-  // أوقف كل الموسيقى السابقة
-  [introSong, gameSong].forEach(a=>{
-    try{ a.pause(); a.currentTime=0; }catch(e){}
+  const eu        = document.getElementById('endUniverse');
+  const endBlack  = document.getElementById('endBlack');
+  const errCont   = document.getElementById('errorContainer');
+  const lovePop   = document.getElementById('lovePop');
+  const lpYes     = document.getElementById('lpYes');
+  const lpNo      = document.getElementById('lpNo');
+  const hackMsg   = document.getElementById('hackMsg');
+  const finalVid  = document.getElementById('finalVid');
+
+  eu.classList.add('active');
+  requestAnimationFrame(()=>{ endBlack.classList.add('show'); });
+
+  // ── error messages ── 3 فقط وسريعة
+  const ERRORS = [
+    { title:'System Error',     msg:'Fatal exception 0xDEAD_LOVE\nApplication will terminate.' },
+    { title:'Critical Warning', msg:'Unknown feelings packet\nentered the system.\nCannot block.' },
+    { title:'Kernel Panic',     msg:'loveDLL.dll is corrupted.\nReinstalling yamada.exe...' },
+  ];
+
+  const W = window.innerWidth, H = window.innerHeight;
+  const positions = [
+    {x:W*0.05, y:H*0.08},
+    {x:W*0.38, y:H*0.35},
+    {x:W*0.10, y:H*0.58},
+  ];
+
+  function makeError(i){
+    const e = ERRORS[i];
+    const div = document.createElement('div');
+    div.className = 'err-pop';
+    div.style.left = (positions[i].x) + 'px';
+    div.style.top  = (positions[i].y) + 'px';
+    div.innerHTML = `
+      <div class="err-bar">
+        <span>⚠ ${e.title}</span>
+        <div class="err-bar-btns">
+          <div class="err-bar-btn">_</div>
+          <div class="err-bar-btn">□</div>
+          <div class="err-bar-btn">✕</div>
+        </div>
+      </div>
+      <div class="err-body">
+        <div class="err-row">
+          <span class="err-icon">🛑</span>
+          <span class="err-txt">${e.msg.replace(/\n/g,'<br>')}</span>
+        </div>
+        <button class="err-ok">OK</button>
+      </div>`;
+    errCont.appendChild(div);
+  }
+
+  // drop errors one by one
+  let ei = 0;
+  function dropErr(){
+    if(ei < ERRORS.length){
+      makeError(ei); ei++;
+      setTimeout(dropErr, 280);
+    } else {
+      // show love popup after last error
+      setTimeout(()=>{
+        lovePop.style.display = 'flex';
+        requestAnimationFrame(()=>{ lovePop.classList.add('show'); });
+
+        // NO btn → disappears after 3 seconds automatically, or on click
+        let noTimer = setTimeout(()=>{ lpNo.classList.add('hide'); }, 3000);
+        lpNo.addEventListener('click', ()=>{
+          clearTimeout(noTimer);
+          lpNo.classList.add('hide');
+        });
+
+        // YES btn
+        lpYes.addEventListener('click', ()=>{
+          // hide everything
+          lovePop.classList.remove('show');
+          errCont.innerHTML = '';
+          setTimeout(()=>{
+            lovePop.style.display = 'none';
+            // type hacker text
+            hackMsg.classList.add('show');
+            typeHackerMsg('I love you too, my life', ()=>{
+            // after typing, show flip screen then video
+              setTimeout(()=>{
+                hackMsg.style.transition = 'opacity 1s ease';
+                hackMsg.style.opacity = '0';
+                const flipScreen = document.getElementById('flipScreen');
+                setTimeout(()=>{
+                  flipScreen.classList.add('show');
+                  // after 3 seconds start video
+                  setTimeout(()=>{
+                    flipScreen.style.transition = 'opacity 0.8s ease';
+                    flipScreen.style.opacity = '0';
+                    // start video properly
+                    finalVid.muted = false;
+                    finalVid.volume = 1;
+                    finalVid.load();
+                    const tryPlay = ()=>{
+                      finalVid.play().then(()=>{
+                        setTimeout(()=>{ finalVid.classList.add('show'); }, 300);
+                      }).catch(()=>{
+                        finalVid.muted = true;
+                        finalVid.play().then(()=>{ setTimeout(()=>{ finalVid.classList.add('show'); },300); }).catch(()=>{});
+                      });
+                    };
+                    finalVid.addEventListener('canplay', tryPlay, {once:true});
+                    setTimeout(tryPlay, 1500); // fallback
+                  }, 3200);
+                }, 600);
+              }, 1800);
+            });
+          }, 600);
+        });
+      }, 500);
+    }
+  }
+
+  setTimeout(dropErr, 900);
+}
+
+function typeHackerMsg(text, onDone){
+  const el = document.getElementById('hmMain');
+  el.textContent = '';
+  const chars = '01#@$%♥★✦∞∅∆Ω'.split('');
+  let displayArr = Array(text.length).fill('_');
+  let revealed = Array(text.length).fill(false);
+  el.textContent = displayArr.join('');
+
+  text.split('').forEach((finalChar, idx)=>{
+    if(finalChar === ' '){ revealed[idx]=true; displayArr[idx]=' '; return; }
+    const delay = idx * 110;
+    setTimeout(()=>{
+      let scrambles = 0;
+      const iv = setInterval(()=>{
+        displayArr[idx] = chars[Math.floor(Math.random()*chars.length)];
+        el.textContent = displayArr.join('');
+        scrambles++;
+        if(scrambles >= 6){
+          clearInterval(iv);
+          displayArr[idx] = finalChar;
+          revealed[idx] = true;
+          el.textContent = displayArr.join('');
+          if(revealed.every(r=>r) && onDone) setTimeout(onDone, 300);
+        }
+      }, 45);
+    }, delay);
   });
-
-  // شغّل صوت الفيديو
-  endVideo.muted = false;
-  endVideo.volume = 1;
-  endVideo.play().catch(()=>{});
-
-  // اظهر الشاشة
-  pgEnd.classList.add('visible');
-  setTimeout(()=>{ endVideo.classList.add('show'); }, 100);
-  setTimeout(()=>{ endHanger.classList.add('show'); }, 900);
 }
 </script>
 </body>
